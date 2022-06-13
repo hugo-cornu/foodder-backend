@@ -12,10 +12,7 @@ const articleSchema = new Schema(
     image: {
       type: String,
     },
-    country: {
-      type: String,
-    },
-    countryIso: {
+    countryCca3: {
       type: String,
     },
     city: {
