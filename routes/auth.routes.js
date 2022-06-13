@@ -10,9 +10,11 @@ const saltRounds = 10;
   Show a signup form.
   */
 router.get("/signup", async (req, res, next) => {
-  const root = __dirname.replace("routes", "");
-  console.log(root);
-  res.sendFile("views/auth/signup.html", { root });
+  res.status(200).json({message: "Signup Page Connected!"})
+  
+  // const root = __dirname.replace("routes", "");
+  // console.log(root);
+  // res.sendFile("views/auth/signup.html", { root });
 });
 
 /*
@@ -21,8 +23,11 @@ router.get("/signup", async (req, res, next) => {
 */
 router.post("/signup", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-
+    console.log(">>>>>>>>>>", req.body)
+    // const userCreated = await User.create(userToCreate)
+    // res.status(201).json({message: "User Created", userCreated})
+    
+    const { username, password} = req.body;
     const foundUser = await User.findOne({ username });
     if (foundUser) {
       res
@@ -34,15 +39,14 @@ router.post("/signup", async (req, res, next) => {
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    console.log({ hashedPassword });
-
     const createdUser = await User.create({
-      username,
+      ...req.body,
       password: hashedPassword,
     });
 
     res.status(201).json(createdUser);
-  } catch (error) {
+  
+  }  catch (error) {
     console.log(error);
     next(error);
   }
@@ -66,7 +70,7 @@ router.post("/login", async (req, res, next) => {
     return;
   }
 
-  const payload = { username };
+  const payload = {username, name: foundUser.name, _id: foundUser._id };
 
   const authToken = jsonwebtoken.sign(payload, process.env.TOKEN_SECRET, {
     algorithm: "HS256",
