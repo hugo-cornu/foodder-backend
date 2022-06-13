@@ -13,6 +13,8 @@ router.get("/", isAuthenticated, async (req, res, next) => {
   }
 });
 
+// GET -> FILTER ARTICLES BY COUNTRIES
+
 // ------------------ PROFILE PAGE ------------------ //
 
 // GET POST FROM A PROFILE PAGE -> FILTER IF USER != PageOwner (Only private posts)
@@ -25,6 +27,8 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 //     next(error);
 //   }
 // });
+
+// GET -> FILTER ARTICLES BY COUNTRIES
 
 // POST - CREATE A NEW POST
 router.post("/", isAuthenticated, async (req, res, next) => {
@@ -68,5 +72,7 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
     next(error);
   }
 });
+
+// GET -> FILTER ARTICLES BY COUNTRIES ?????
 
 module.exports = router;
