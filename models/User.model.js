@@ -15,7 +15,7 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-    },
+    }, // ADD AN EMAIL VALIDATOR
     password: {
       type: String,
       required: true,

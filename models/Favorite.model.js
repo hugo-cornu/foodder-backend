@@ -2,7 +2,7 @@ const {Schema, SchemaTypes, model} = require("mongoose")
 
 const favoriteSchema = new Schema(
   {
-    author: {
+    user: {
       type: SchemaTypes.ObjectId,
       ref: "User",
     },
