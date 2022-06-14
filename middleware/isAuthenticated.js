@@ -14,8 +14,8 @@ const isAuthenticated = async (req, res, next) => {
   try {
     const decodedJwt = jsonwebtoken.verify(token, process.env.TOKEN_SECRET)
     console.log({ decodedJwt })
-    const { username } = decodedJwt
-    const user = await User.findOne({ username })
+    const { _id } = decodedJwt
+    const user = await User.findOne({ _id })
 
     // req is the same object for each middleware/route handler
     // over the course of a request's lifetime
