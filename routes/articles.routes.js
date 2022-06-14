@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const isAuthenticated = require("../middleware/isAuthenticated")
 const isAuthor = require("../middleware/isAuthor")
+const isPageOwner = require("../middleware/isPageOwner")
 const Article = require("../models/Article.model")
 const User = require("../models/User.model")
 
@@ -35,33 +36,60 @@ router.get("/countries", isAuthenticated, async (req, res, next) => {
 
 // GET POST FROM A PROFILE PAGE -> FILTER IF USER != PageOwner (Only private posts)
 
-router.get("/user/:username", isAuthenticated, async (req, res, next) => {
-  try {
-    const connectedUsername = req.user.username
-    const username = req.params.username
+// router.get("/user/:username", isAuthenticated, async (req, res, next) => {
+//   try {
+//     const connectedUsername = req.user.username
+//     const username = req.params.username
 
-    const user = await User.findOne({ username })
-    const userId = user._id
+//     const user = await User.findOne({ usename })
+//     const userId = user._id
 
-    // Check if the connected user is the owner of the profile page visited
-    if (connectedUsername === username) {
-      res
-        .status(200)
-        .json(await Article.find({ author: userId }).sort({ createdAt: -1 }))
-    } else {
-      res.status(200).json(
-        await Article.find({ author: userId, private: false }).sort({
-          createdAt: -1,
-        })
-      )
+//     // Check if the connected user is the owner of the profile page visited
+//     if (connectedUsername === username) {
+//       res
+//         .status(200)
+//         .json(await Article.find({ author: userId }).sort({ createdAt: -1 }))
+//     } else {
+//       res.status(200).json(
+//         await Article.find({ author: userId, private: false }).sort({
+//           createdAt: -1,
+//         })
+//       )
+//     }
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
+// GET POSTS FROM USER FILTERED BY COUNTRY
+
+router.get(
+  "/user/:username",
+  isAuthenticated,
+  isPageOwner,
+  async (req, res, next) => {
+    try {
+      const foundUser = await User.findOne({ username: req.params.username })
+      const foundUserId = foundUser._id
+
+      if (req.isOwner) {
+        res
+          .status(200)
+          .json(
+            await Article.find({ author: foundUserId }).sort({ createdAt: -1 })
+          )
+      } else {
+        res.status(200).json(
+          await Article.find({ author: foundUserId, private: false }).sort({
+            createdAt: -1,
+          })
+        )
+      }
+    } catch (error) {
+      next(error)
     }
-  } catch (error) {
-    next(error)
   }
-})
-
-// GET ALL POSTS FILTERED BY COUNTRY
-// CODE TO PUT HERE
+)
 
 // POST - CREATE A NEW POST
 router.post("/", isAuthenticated, async (req, res, next) => {
