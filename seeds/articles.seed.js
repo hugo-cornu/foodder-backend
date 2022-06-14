@@ -57,7 +57,7 @@ async function seedArticles() {
     await Promise.all(
       articles.map(async (article) => ({
         ...article,
-        author: await User.findOne({username: article.author}),
+        author: await User.findOne({ username: article.author }),
       }))
     )
   )

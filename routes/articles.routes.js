@@ -77,6 +77,7 @@ router.get(
   async (req, res, next) => {
     try {
       countryCode = req.params.countryCode
+      console.log(countryCode)
       res
         .status(200)
         .json(await Article.find({ countryCca3: countryCode, private: false }))
