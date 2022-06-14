@@ -15,7 +15,6 @@ async function getCountries() {
 async function seedCountries(allCountriesCleaned) {
   const newConnection = await require("../db/index.js")
   const createdCountries = await Country.create(allCountriesCleaned)
-  await Promise.all(allCountriesCleaned)
 
   console.log("createdCountries:", createdCountries)
   console.log(`Created ${createdCountries.length} countries.`)
