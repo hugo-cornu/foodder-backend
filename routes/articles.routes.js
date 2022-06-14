@@ -50,7 +50,7 @@ router.patch("/:id", isAuthenticated, isAuthor, async (req, res, next) => {
 })
 
 // DELETE A POST BY ID IF AUTHORIZED
-router.delete("/:id", isAuthenticated, async (req, res, next) => {
+router.delete("/:id", isAuthenticated, isAuthor, async (req, res, next) => {
   try {
     await Article.findByIdAndDelete(req.params.id)
     res.status(200).json({ message: `Good job, you deleted ${req.params.id}` })
