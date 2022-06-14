@@ -32,6 +32,16 @@ router.get("/countries", isAuthenticated, async (req, res, next) => {
   }
 })
 
+// TEST
+async function filterByCountry(arg) {
+  const { cca3 } = req.query
+  let query = {
+    countryCca3: { $in: cca3 },
+    private: false,
+  }
+  res.status(200).json(await Article.find(query))
+}
+
 // ------------------ PROFILE PAGE ------------------ //
 
 // GET POST FROM A PROFILE PAGE -> FILTER IF USER != PageOwner (Only private posts)
@@ -72,17 +82,28 @@ router.get(
       const foundUser = await User.findOne({ username: req.params.username })
       const foundUserId = foundUser._id
 
+      const { cca3 } = req.query
+
       if (req.isOwner) {
-        res
-          .status(200)
-          .json(
-            await Article.find({ author: foundUserId }).sort({ createdAt: -1 })
-          )
+        res.status(200).json(
+          await Article.find({
+            countryCca3: { $in: cca3 },
+            author: foundUserId,
+          })
+            .sort({ createdAt: -1 })
+            .populate("author", "username")
+        )
       } else {
         res.status(200).json(
-          await Article.find({ author: foundUserId, private: false }).sort({
-            createdAt: -1,
+          await Article.find({
+            countryCca3: { $in: cca3 },
+            author: foundUserId,
+            private: false,
           })
+            .sort({
+              createdAt: -1,
+            })
+            .populate("author", "username")
         )
       }
     } catch (error) {
