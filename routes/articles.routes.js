@@ -1,10 +1,11 @@
 const router = require("express").Router()
 const isAuthenticated = require("../middleware/isAuthenticated")
+const isAuthor = require("../middleware/isAuthor")
 const Article = require("../models/Article.model")
 
 // ------------------ FEED PAGE ------------------ //
 
-// GET ALL POSTS IN THE FEED PAGE
+// GET ALL PUBLIC POSTS IN THE FEED PAGE
 router.get("/", isAuthenticated, async (req, res, next) => {
   try {
     res.status(200).json(await Article.find({ private: false }))
@@ -38,8 +39,8 @@ router.post("/", isAuthenticated, async (req, res, next) => {
   }
 })
 
-// PATCH - UPDATE A NEW POST
-router.patch("/:id", isAuthenticated, async (req, res, next) => {
+// PATCH - UPDATE A POST BY ID IF AUTHORIZED
+router.patch("/:id", isAuthenticated, isAuthor, async (req, res, next) => {
   try {
     await Article.findByIdAndUpdate(req.params.id, req.body)
     res.status(200).json({ message: `Good job, you updated ${req.params.id}` })
@@ -48,7 +49,7 @@ router.patch("/:id", isAuthenticated, async (req, res, next) => {
   }
 })
 
-// DELETE A POST
+// DELETE A POST BY ID IF AUTHORIZED
 router.delete("/:id", isAuthenticated, async (req, res, next) => {
   try {
     await Article.findByIdAndDelete(req.params.id)
