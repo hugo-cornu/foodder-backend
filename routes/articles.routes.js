@@ -1,19 +1,17 @@
-const router = require("express").Router();
-const isAuthenticated = require("../middleware/isAuthenticated");
-const Article = require("../models/Article.model");
+const router = require("express").Router()
+const isAuthenticated = require("../middleware/isAuthenticated")
+const Article = require("../models/Article.model")
 
 // ------------------ FEED PAGE ------------------ //
 
 // GET ALL POSTS IN THE FEED PAGE
 router.get("/", isAuthenticated, async (req, res, next) => {
   try {
-    res.status(200).json(await Article.find({ private: false }));
+    res.status(200).json(await Article.find({ private: false }))
   } catch (error) {
-    next(error);
+    next(error)
   }
-});
-
-// GET -> FILTER ARTICLES BY COUNTRIES
+})
 
 // ------------------ PROFILE PAGE ------------------ //
 
@@ -28,51 +26,63 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 //   }
 // });
 
-// GET -> FILTER ARTICLES BY COUNTRIES
-
 // POST - CREATE A NEW POST
 router.post("/", isAuthenticated, async (req, res, next) => {
   try {
-    const articleToCreate = req.body;
-    const articleCreated = await Article.create(articleToCreate);
-    res.status(201).json(articleCreated);
+    const articleToCreate = req.body
+    const articleCreated = await Article.create(articleToCreate)
+    res.status(201).json(articleCreated)
   } catch (error) {
-    next(error);
+    next(error)
   }
-});
+})
 
 // PATCH - UPDATE A NEW POST
 router.patch("/:id", isAuthenticated, async (req, res, next) => {
   try {
-    await Article.findByIdAndUpdate(req.params.id, req.body);
-    res.status(200).json({ message: `Good job, you updated ${req.params.id}` });
+    await Article.findByIdAndUpdate(req.params.id, req.body)
+    res.status(200).json({ message: `Good job, you updated ${req.params.id}` })
   } catch (error) {
-    next(error);
+    next(error)
   }
-});
+})
 
 // DELETE A POST
 router.delete("/:id", isAuthenticated, async (req, res, next) => {
   try {
-    await Article.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: `Good job, you deleted ${req.params.id}` });
+    await Article.findByIdAndDelete(req.params.id)
+    res.status(200).json({ message: `Good job, you deleted ${req.params.id}` })
   } catch (error) {
-    next(error);
+    next(error)
   }
-});
+})
 
 // ------------------ GENERAL BEHAVIOUR ------------------ //
 
 // GET ONE POST (FULL PAGE) WHEN A USER CLICK ON A POST
 router.get("/:id", isAuthenticated, async (req, res, next) => {
   try {
-    articleId = req.params.id;
-    res.status(200).json(await Article.findById(articleId));
+    articleId = req.params.id
+    res.status(200).json(await Article.findById(articleId))
   } catch (error) {
-    next(error);
+    next(error)
   }
-});
+})
 
-// GET -> FILTER ARTICLES BY COUNTRIES ?????
+// GET ALL POSTS FILTERED BY ONE COUNTRY
+router.get(
+  "/countries/:countryCode",
+  isAuthenticated,
+  async (req, res, next) => {
+    try {
+      countryCode = req.params.countryCode
+      res
+        .status(200)
+        .json(await Article.find({ countryCca3: countryCode, private: false }))
+    } catch (error) {
+      next(error)
+    }
+  }
+)
 
-module.exports = router;
+module.exports = router
