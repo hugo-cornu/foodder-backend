@@ -29,6 +29,7 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 // POST - CREATE A NEW POST
 router.post("/", isAuthenticated, async (req, res, next) => {
   try {
+    req.body.author = req.user._id
     const articleToCreate = req.body
     const articleCreated = await Article.create(articleToCreate)
     res.status(201).json(articleCreated)
