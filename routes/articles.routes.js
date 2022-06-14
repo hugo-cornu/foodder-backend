@@ -17,11 +17,25 @@ router.get("/", isAuthenticated, async (req, res, next) => {
   }
 })
 
+// GET ALL POSTS FILTERED BY COUNTRY
+router.get("/countries", isAuthenticated, async (req, res, next) => {
+  try {
+    const { cca3 } = req.query
+    let query = {
+      countryCca3: { $in: cca3 },
+      private: false,
+    }
+    res.status(200).json(await Article.find(query))
+  } catch (error) {
+    next(error)
+  }
+})
+
 // ------------------ PROFILE PAGE ------------------ //
 
 // GET POST FROM A PROFILE PAGE -> FILTER IF USER != PageOwner (Only private posts)
 
-router.get("/:username", isAuthenticated, async (req, res, next) => {
+router.get("/user/:username", isAuthenticated, async (req, res, next) => {
   try {
     const connectedUsername = req.user.username
     const username = req.params.username
@@ -35,18 +49,19 @@ router.get("/:username", isAuthenticated, async (req, res, next) => {
         .status(200)
         .json(await Article.find({ author: userId }).sort({ createdAt: -1 }))
     } else {
-      res
-        .status(200)
-        .json(
-          await Article.find({ author: userId, private: false }).sort({
-            createdAt: -1,
-          })
-        )
+      res.status(200).json(
+        await Article.find({ author: userId, private: false }).sort({
+          createdAt: -1,
+        })
+      )
     }
   } catch (error) {
     next(error)
   }
 })
+
+// GET ALL POSTS FILTERED BY COUNTRY
+// CODE TO PUT HERE
 
 // POST - CREATE A NEW POST
 router.post("/", isAuthenticated, async (req, res, next) => {
@@ -91,22 +106,5 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
     next(error)
   }
 })
-
-// GET ALL POSTS FILTERED BY ONE COUNTRY
-router.get(
-  "/countries/:countryCode",
-  isAuthenticated,
-  async (req, res, next) => {
-    try {
-      countryCode = req.params.countryCode
-      console.log(countryCode)
-      res
-        .status(200)
-        .json(await Article.find({ countryCca3: countryCode, private: false }))
-    } catch (error) {
-      next(error)
-    }
-  }
-)
 
 module.exports = router
