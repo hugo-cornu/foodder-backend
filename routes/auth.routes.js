@@ -28,7 +28,7 @@ router.post("/signup", async (req, res, next) => {
 
     // Make sure users fill all mandatory fields
     if (!username || !email || !password) {
-      res.json({
+      res.status(400).json({
         errorMessage:
           "All fields are mandatory. Please provide your username, email and password.",
       })
@@ -37,7 +37,7 @@ router.post("/signup", async (req, res, next) => {
 
     // Make sure password is strong
     if (!regex.test(password)) {
-      res.status(500).json({
+      res.status(400).json({
         errorMessage:
           "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
       })
