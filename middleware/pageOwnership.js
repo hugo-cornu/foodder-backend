@@ -2,16 +2,16 @@
 Check is user is page, owner. 
 If so, create req.isOwner as a boolean to pass it to the request */
 
-const isPageOwner = async (req, res, next) => {
+const pageOwnership = async (req, res, next) => {
   try {
     console.log(">>>>req.user:", req.user)
     const loggedUser = req.user.username
     const username = req.params.username
 
     if (loggedUser === username) {
-      req.isOwner = true
+      req.isPageOwner = true
     } else {
-      req.isOwner = false
+      req.isPageOwner = false
     }
   } catch (error) {
     next(error)
@@ -20,4 +20,4 @@ const isPageOwner = async (req, res, next) => {
   next()
 }
 
-module.exports = isPageOwner
+module.exports = pageOwnership
