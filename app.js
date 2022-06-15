@@ -20,13 +20,13 @@ const allRoutes = require("./routes/index.routes")
 app.use("/", allRoutes)
 
 const authRoutes = require("./routes/auth.routes")
-app.use("/auth", authRoutes)
+app.use("/api/auth", authRoutes)
 
 const articlesRoutes = require("./routes/articles.routes")
-app.use("/articles", articlesRoutes)
+app.use("/api/articles", articlesRoutes)
 
 const favoritesRoutes = require("./routes/favorites.routes")
-app.use("/favorites", favoritesRoutes)
+app.use("/api/favorites", favoritesRoutes)
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app)
 
