@@ -25,6 +25,8 @@ app.use("/auth", authRoutes)
 const articlesRoutes = require("./routes/articles.routes")
 app.use("/articles", articlesRoutes)
 
+const favoritesRoutes = require("./routes/favorites.routes")
+app.use("/favorites", favoritesRoutes)
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app)
 
