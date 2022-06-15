@@ -11,6 +11,7 @@ const articleSchema = new Schema(
     },
     image: {
       type: String,
+      required: true,
     },
     countryCca3: {
       type: String,
@@ -23,6 +24,7 @@ const articleSchema = new Schema(
     },
     private: {
       type: Boolean,
+      default: false,
     },
     author: {
       type: SchemaTypes.ObjectId,
