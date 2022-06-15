@@ -119,6 +119,15 @@ router.post(
       if (req.file) {
         req.body.image = req.file.path
       }
+
+      const { title, image } = req.body
+      if (!title || !image) {
+        res.status(400).json({
+          errorMessage: "Please provide a title and an image.",
+        })
+        return
+      }
+
       req.body.author = req.user._id
       const articleToCreate = req.body
       const articleCreated = await Article.create(articleToCreate)
