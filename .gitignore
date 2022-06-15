@@ -6,3 +6,6 @@ npm-debug.log
 
 # Environment Variables should NEVER be published
 .env
+
+# Don't want to push seeds. The file was only for testing
+seeds
