@@ -23,16 +23,39 @@ router.get("/signup", async (req, res, next) => {
 */
 router.post("/signup", async (req, res, next) => {
   try {
-    console.log(">>>>>>>>>>", req.body)
-    // const userCreated = await User.create(userToCreate)
-    // res.status(201).json({message: "User Created", userCreated})
+    const { username, email, password } = req.body
+    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
 
-    const { username, password } = req.body
-    const foundUser = await User.findOne({ username })
+    // Make sure users fill all mandatory fields
+    if (!username || !email || !password) {
+      res.json({
+        errorMessage:
+          "All fields are mandatory. Please provide your username, email and password.",
+      })
+      return
+    }
+
+    // Make sure password is strong
+    if (!regex.test(password)) {
+      res.status(500).json({
+        errorMessage:
+          "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+      })
+      return
+    }
+
+    // Check if the username is already taken
+    const foundUser = await User.findOne({
+      $or: [{ username: username }, { email: email }],
+    })
+
+    console.log("foundUser:", foundUser)
+
     if (foundUser) {
-      res
-        .status(401)
-        .json({ message: "Username already exists. Try logging in instead." })
+      res.status(401).json({
+        errorMessage:
+          "Username or email already exist. Try logging in instead.",
+      })
       return
     }
 
