@@ -4,6 +4,7 @@ const isAuthor = require("../middleware/isAuthor")
 const pageOwnership = require("../middleware/pageOwnership")
 const Article = require("../models/Article.model")
 const User = require("../models/User.model")
+const fileUploader = require("../config/cloudinary.config")
 
 // ------------------ FEED PAGE ------------------ //
 
@@ -109,16 +110,24 @@ router.get(
 )
 
 // POST - CREATE A NEW POST
-router.post("/", isAuthenticated, async (req, res, next) => {
-  try {
-    req.body.author = req.user._id
-    const articleToCreate = req.body
-    const articleCreated = await Article.create(articleToCreate)
-    res.status(201).json(articleCreated)
-  } catch (error) {
-    next(error)
+router.post(
+  "/",
+  isAuthenticated,
+  fileUploader.single("image"),
+  async (req, res, next) => {
+    try {
+      if (req.file) {
+        req.body.image = req.file.path
+      }
+      req.body.author = req.user._id
+      const articleToCreate = req.body
+      const articleCreated = await Article.create(articleToCreate)
+      res.status(201).json(articleCreated)
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
 // PATCH - UPDATE A POST BY ID IF AUTHORIZED
 router.patch("/:id", isAuthenticated, isAuthor, async (req, res, next) => {
