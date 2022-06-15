@@ -45,9 +45,12 @@ router.post("/signup", async (req, res, next) => {
     }
 
     // Check if the username is already taken
-    const foundUser = await User.find({
+    const foundUser = await User.findOne({
       $or: [{ username: username }, { email: email }],
-    }) // check the email also
+    })
+
+    console.log("foundUser:", foundUser)
+
     if (foundUser) {
       res.status(401).json({
         errorMessage:
