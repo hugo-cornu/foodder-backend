@@ -22,7 +22,7 @@ router.post("/reset-password", async (req, res, next) => {
   try {
     const { email } = req.body
     const foundUser = await User.findOne({ email })
-    const { username, _id } = foundUser
+    const { username } = foundUser
 
     // checking if the email already exists in the data base
     if (!foundUser) {
