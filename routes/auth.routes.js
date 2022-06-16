@@ -11,11 +11,23 @@ const saltRounds = 10
   Show a signup form.
   */
 router.get("/signup", async (req, res, next) => {
-  res.status(200).json({ message: "Signup Page Connected!" })
+  //res.status(200).json({ message: "Signup Page Connected!" })
 
   // const root = __dirname.replace("routes", "");
   // console.log(root);
   res.sendFile("views/auth/signup.html", { root })
+})
+
+/*
+  GET /login
+  Show a login form.
+  */
+router.get("/login", async (req, res, next) => {
+  //res.status(200).json({ message: "Login Page Connected!" })
+
+  // const root = __dirname.replace("routes", "");
+  // console.log(root);
+  res.sendFile("views/auth/login.html", { root })
 })
 
 /*
@@ -35,7 +47,6 @@ router.post("/signup", async (req, res, next) => {
       })
       return
     }
-
     // Make sure password is strong
     if (!regex.test(password)) {
       res.status(400).json({

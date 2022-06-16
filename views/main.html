@@ -1,76 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-			integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-			crossorigin="anonymous"
-			referrerpolicy="no-referrer"
-		/>
-		<link rel="stylesheet" href="css/style.css" />
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		<script type="module" src="script/index.js"></script>
-		<title>Cat app</title>
-	</head>
-	<body>
-		<main>
-			<nav class="container">
-				<h1>FOODDER</h1>
-				<ul class="container">
-					<li><a href="/auth/signup">Sign up</a></li>
-					<li><a href="/auth/login">Log in</a></li>
-				</ul>
-			</nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="script/index.js"></script>
+    <title>Cat app</title>
+  </head>
+  <body>
+    <main>
+      <nav class="container">
+        <h1>FOODDER</h1>
+        <ul class="container">
+          <li><a href="/api/auth/signup">Sign up</a></li>
+          <li><a href="/api/auth/login">Log in</a></li>
+        </ul>
+      </nav>
 
-			<div class="button container">
-				<button id="get-cats">Get all Articles</button>
-				<button id="create-cat">Create an article</button>
-			</div>
+      <div class="button container">
+        <button id="get-cats">Get all Articles</button>
+        <button id="create-cat">Create an article</button>
+      </div>
 
-			<div class="container main-content">
-				<div class="cat container"></div>
+      <div class="container main-content">
+        <div class="cat container"></div>
 
-				<div class="form container">
-					<form
-						method="post"
-						action="/cats"
-						class="hidden"
-						enctype="multipart/form-data"
-					>
-						<p class="error"></p>
-						<div>
-							<label for="name">Cat name:</label>
-							<input type="text" id="name" name="name" />
-						</div>
-						<div>
-							<label for="url">Cat picture url:</label>
-							<input type="file" id="url" name="url" />
-						</div>
+        <div class="form container">
+          <form
+            method="post"
+            action="/cats"
+            class="hidden"
+            enctype="multipart/form-data"
+          >
+            <p class="error"></p>
+            <div>
+              <label for="name">Cat name:</label>
+              <input type="text" id="name" name="name" />
+            </div>
+            <div>
+              <label for="url">Cat picture url:</label>
+              <input type="file" id="url" name="url" />
+            </div>
 
-						<button id="submit">Create 😼</button>
-					</form>
-				</div>
-			</div>
-		</main>
+            <button id="submit">Create 😼</button>
+          </form>
+        </div>
+      </div>
+    </main>
 
-		<template id="cat-template">
-			<div class="card container">
-				<h3></h3>
-				<div class="description"></div>
-				<picture class="container"><img src="" alt="" /></picture>
-				<div class="controls">
-					<div class="edit">
-						<i class="fa-solid fa-pencil"></i>
-					</div>
-					<div class="delete">
-						<i class="fa-solid fa-circle-minus"></i>
-					</div>
-				</div>
-			</div>
-		</template>
-	</body>
+    <template id="cat-template">
+      <div class="card container">
+        <h3></h3>
+        <div class="description"></div>
+        <picture class="container"><img src="" alt="" /></picture>
+        <div class="controls">
+          <div class="edit">
+            <i class="fa-solid fa-pencil"></i>
+          </div>
+          <div class="delete">
+            <i class="fa-solid fa-circle-minus"></i>
+          </div>
+        </div>
+      </div>
+    </template>
+  </body>
 </html>
