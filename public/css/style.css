@@ -1,0 +1,152 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+/* 
+button {
+  unset:all
+} */
+
+body {
+	background-color: rgb(255, 240, 208);
+	font-family: sans-serif;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+}
+
+h1{
+	color: rgb(255, 196, 68);
+}
+
+.container {
+	display: flex;
+}
+
+nav.container {
+	height: 70px;
+	align-items: center;
+	padding-left: 2rem;
+	gap: 2rem;
+	background-color: black;
+	color: whitesmoke;
+}
+
+ul.container {
+	gap: 2rem;
+	list-style: none;
+}
+
+nav a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.button.container {
+	gap: 2rem;
+	justify-content: center;
+}
+
+button {
+	padding: 0.5rem 1rem;
+	border: 2px solid black;
+	background-color: whitesmoke;
+	font-family: inherit;
+}
+
+button:hover {
+	background-color: black;
+	color: white;
+	transition: all 200ms;
+}
+
+.main-content {
+	justify-content: space-evenly;
+}
+
+.cat.container {
+	flex-wrap: wrap;
+	gap: 2rem;
+	max-width: 900px;
+}
+
+.form.container {
+	justify-content: center;
+}
+
+.card.container {
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
+	width: 200px;
+}
+
+.card picture {
+	max-width: 200px;
+	border-radius: 50%;
+	aspect-ratio: 1;
+	border: 1px solid black;
+	overflow: hidden;
+	transition: all 200ms ease-in-out;
+}
+.card picture:hover {
+	transform: scale(1.1);
+	transition: transform 200ms ease-in-out;
+}
+.card img {
+	object-fit: cover;
+	aspect-ratio: 1;
+}
+
+.controls {
+	display: flex;
+	gap: 1em;
+}
+
+.edit,
+.delete {
+	cursor: pointer;
+}
+.edit:hover,
+.delete:hover {
+	color: red;
+}
+
+.hidden {
+	display: none;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
+	position: fixed;
+}
+
+form input {
+	height: 2rem;
+	border: none;
+	outline: none;
+	border-radius: 0.5rem;
+	padding: 0 0.5rem;
+}
+.error {
+	color: red;
+}
+
+
+
+/* NEW */
+
+.description {
+	text-overflow: ellipsis;
+	overflow: hidden;
+  max-width: 150px;
+  height: 50px;
+
+}

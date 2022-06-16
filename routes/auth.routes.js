@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs")
 const jsonwebtoken = require("jsonwebtoken")
 const User = require("../models/User.model")
+const root = require("../root")
 
 const router = require("express").Router()
 const saltRounds = 10
@@ -14,7 +15,7 @@ router.get("/signup", async (req, res, next) => {
 
   // const root = __dirname.replace("routes", "");
   // console.log(root);
-  // res.sendFile("views/auth/signup.html", { root });
+  res.sendFile("views/auth/signup.html", { root })
 })
 
 /*

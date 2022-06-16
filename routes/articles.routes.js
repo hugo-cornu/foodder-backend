@@ -9,24 +9,29 @@ const fileUploader = require("../config/cloudinary.config")
 // ------------------ FEED PAGE ------------------ //
 
 // GET ALL PUBLIC POSTS IN THE FEED PAGE
-router.get("/", isAuthenticated, async (req, res, next) => {
-  try {
-    res
-      .status(200)
-      .json(await Article.find({ private: false }).sort({ createdAt: -1 }))
-  } catch (error) {
-    next(error)
+router.get(
+  "/",
+  /* isAuthenticated, */ async (req, res, next) => {
+    try {
+      res
+        .status(200)
+        .json(await Article.find({ private: false }).sort({ createdAt: -1 }))
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
 // GET ALL POSTS FILTERED BY COUNTRY
 router.get("/countries", isAuthenticated, async (req, res, next) => {
   try {
     const { cca3 } = req.query
+    console.log(">>>req.query:", req.query)
     let query = {
       countryCca3: { $in: cca3 },
       private: false,
     }
+    console.log(">>>>>query:", query)
     res.status(200).json(await Article.find(query))
   } catch (error) {
     next(error)
