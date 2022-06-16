@@ -27,6 +27,9 @@ app.use("/api/articles", articlesRoutes)
 
 const favoritesRoutes = require("./routes/favorites.routes")
 app.use("/api/favorites", favoritesRoutes)
+
+const resetPasswordRoutes = require("./routes/reset-password.routes")
+app.use("/api", resetPasswordRoutes)
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app)
 
