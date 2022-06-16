@@ -115,3 +115,5 @@ router.patch("/user/reset-password", async (req, res, next) => {
 })
 
 module.exports = router
+
+// END
