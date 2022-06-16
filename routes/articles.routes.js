@@ -15,7 +15,11 @@ router.get(
     try {
       res
         .status(200)
-        .json(await Article.find({ private: false }).sort({ createdAt: -1 }))
+        .json(
+          await Article.find({ private: false })
+            .sort({ createdAt: -1 })
+            .populate("author")
+        )
     } catch (error) {
       next(error)
     }

@@ -67,9 +67,11 @@ export function createTemplateAndAppend(cat) {
   qs("h3", clone).textContent = cat.title
   qs(".description", clone).textContent = cat.description
   qs("img", clone).src = cat.image
+  qs(".author-container img", clone).src = cat.author.image
   qs(".card", clone).dataset.id = cat._id
-  qs(".edit", clone).addEventListener("click", editCat)
-  qs(".delete", clone).addEventListener("click", deleteCat)
+  qs(".author-name", clone).textContent = cat.author.username
+  // qs(".edit", clone).addEventListener("click", editCat)
+  // qs(".delete", clone).addEventListener("click", deleteCat)
   catContainer.append(clone)
 }
 
