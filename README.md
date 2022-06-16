@@ -9,3 +9,6 @@ Foodder was built as part of an Ironhack coding bootcamp.
 
 ## Documentation
 https://documenter.getpostman.com/view/21219252/UzBiPULQ
+
+## Deployed API
+https://foodder.herokuapp.com/
