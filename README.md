@@ -8,24 +8,26 @@ You plan on traveling abroad? Find the best dishes to try added by other users.
 
 Foodder was built as part of an Ironhack coding bootcamp.
 
-## Our data models
+## Data model
 
+### Models
 - User
-- Article (which is a User Post)
-- Favorite
-- Countries
+- Article (post created by a user)
+- Favorite (post saved as a favorite by a user)
+- Country
 
-A user can create posts and indicates if they'd be public or private. Public posts are available for all the users - even on their profile page or the feed page.
+A user can create a post and indicate if it is public or private.
+Public posts can be seen by all users - either on a user's profile or on the feed page.
 
-** User Experience**
+## User Experience
 Users can filter by countries in order to personnalize their experience.
 They're also able to save their favorite posts from other users.
 
-## Tech Stack used
+## Tech Stack
 
-Nodejs | Express | MongoDB (Compass locally & Altas for managing our database)
+Nodejs | Express | MongoDB (Compass locally & Altas for managing the deployed database)
 
-_All data in the cloud is store in Europe and is then RGPD compliant._
+_All data in the cloud is stored in Europe._
 
 ## Documentation
 
