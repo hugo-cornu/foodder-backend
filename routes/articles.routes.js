@@ -31,6 +31,7 @@ router.get("/countries", isAuthenticated, async (req, res, next) => {
   try {
     const { cca3 } = req.query
     console.log(">>>req.query:", req.query)
+
     let query = {
       countryCca3: { $in: cca3 },
       private: false,
@@ -42,7 +43,7 @@ router.get("/countries", isAuthenticated, async (req, res, next) => {
   }
 })
 
-// ------------------ PROFILE PAGE ------------------ //
+// ------------------ PROFILE PAGE ------------------- //
 
 // GET POST FROM A PROFILE PAGE -> FILTER IF USER != PageOwner (Only private posts)
 
@@ -89,6 +90,7 @@ router.get(
       const foundUserId = foundUser._id
 
       const { cca3 } = req.query
+      console.log("cca3:", cca3)
 
       if (req.isPageOwner) {
         res.status(200).json(
