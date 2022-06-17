@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap");
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 /* 
 button {
@@ -10,229 +10,59 @@ button {
 } */
 
 body {
-	background-color: rgb(255, 240, 208);
-	font-family: 'Inter','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(255, 240, 208);
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-main {
-	display: flex;
-	flex-direction: column;
-	gap: 2em;
-}
-
-h1{
-	color: rgb(255, 196, 68);
+h1 {
+  color: rgb(255, 196, 68);
 }
 
 .container {
-	display: flex;
+  display: flex;
 }
 
 nav.container {
-	height: 70px;
-	align-items: center;
-	padding-left: 2rem;
-	gap: 2rem;
-	background-color: rgb(31, 15, 4);
-	color: whitesmoke;
-	position: fixed;
-	width: 100%;
-	z-index: 100;
+  height: 70px;
+  align-items: center;
+  padding-left: 2rem;
+  gap: 2rem;
+  background-color: rgb(31, 15, 4);
+  color: whitesmoke;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
 }
 
 ul.container {
-	gap: 2rem;
-	list-style: none;
+  gap: 2rem;
+  list-style: none;
 }
 
 nav a {
-	text-decoration: none;
-	color: inherit;
-}
-
-.author-name {
-	font-size: 0.9em;
-	color: #616161;
-	margin-left: 0.5em;
-}
-.button-container {
-	gap: 2rem;
-	position: sticky;
-	top: 0;
-	z-index: 100;
-	align-self: end;
-	margin-left: auto;
-	margin-right: 2em;
-	align-items: center;
-	margin-bottom: auto;
-	margin-top: auto;
-}
-
-#create-cat span {
-	color: #1f0f04;
-	margin-left: 1em;
-	font-size: 1.4em;
-}
-
-button#create-cat {
-	background-color: #ffc444;
-	border-radius: 0.4em;
-	color: #1f0f04;
-	font-weight: 800;
-	padding: 0.6em 2em 0.9em;
-	border: none;
-	border-bottom: 5px solid #ac7808;
-}
-
-button#create-cat:hover {
-	background-color: #d9a22b;
-	color: #1f0f04;
-	transition: all 200ms;
-	cursor: pointer;
-}
-
-.main-content {
-	justify-content: space-evenly;
-	margin-top: 5em;
-}
-
-.cat.container {
-	margin-top: 4em;
-	margin-bottom: 10em;
-	flex-wrap: wrap;
-	gap: 2rem;
-	max-width: 900px;
-	justify-content: center;
-}
-
-.form.container {
-	justify-content: center;
-}
-
-.card.container {
-	flex-direction: column;
-	align-items: center;
-	gap: 1em;
-	width: 40%;
-	/* border: 2px solid rgb(97, 97, 97); */
-	border-radius: 1em;
-	transition: all 300ms ease-in-out;
-	position: relative;
-	box-shadow: 0px 0px 15px -3px rgba(0,0,0,0.2);
-	background-color: rgb(255, 246, 231);;
-}
-
-.text-container img {
-	width: 35px;
-	height: 35px;
-	border-radius: 50%;
-	border: 2px solid #7b5400;
-	position: relative;
-	top: 10px;
-}
-
-.favorite-icon {
-	position: absolute;
-	top: -10px;
-	right: -10px;
-	background-color: #fff;
-	border-radius: 50%;
-	padding: 5px;
-	width: 40px;
-	height: 40px;
-	border: 2px solid #ac7808;
-	text-align: center;
-	background-color: #ffc444;
-
-}
-
-.favorite-icon i {
-	font-size: 1.2em;
-	margin-top: 3px;
-	color: #815a06;
-}
-
-.favorite-icon:hover {
-	transform: scale(1.2);
-	transition: transform 200ms ease-in-out;
-	cursor: pointer;
-}
-
-.card.container:hover {
-	transform: scale(1.02);
-	transition: transform 200ms ease-in-out;
-}
-
-.text-container {
-	padding: 10px 15px;
-	margin-bottom: 1em;
-
-}
-
-h3 {
-	padding-top: 1.2em;
-	padding-bottom: 0.7em;
-	color: #303030;
-}
-
-.card picture {
-	width: 100%;
-	aspect-ratio: 1;
-	overflow: hidden;
-	border-top-left-radius: 1em;
-	border-top-right-radius: 1em;
-}
-.card img {
-	object-fit: cover;
-	aspect-ratio: 1;
-}
-
-.controls {
-	display: flex;
-	gap: 1em;
-}
-
-.edit,
-.delete {
-	cursor: pointer;
-}
-.edit:hover,
-.delete:hover {
-	color: red;
-}
-
-.hidden {
-	display: none;
+  text-decoration: none;
+  color: inherit;
 }
 
 form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1em;
-	position: fixed;
+  border: 1px solid black;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  position: fixed;
+  margin-top: 50px;
+  padding: 14px;
 }
 
 form input {
-	height: 2rem;
-	border: none;
-	outline: none;
-	border-radius: 0.5rem;
-	padding: 0 0.5rem;
+  height: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+  padding: 0 0.5rem;
 }
 .error {
-	color: red;
-}
-
-
-
-/* NEW */
-
-.description {
-	text-overflow: ellipsis;
-	overflow: hidden;
-  height: 3em;
-	color: #575757;
-	line-height: 1.4em;
-
+  color: red;
 }
