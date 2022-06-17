@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs")
 const jsonwebtoken = require("jsonwebtoken")
 const User = require("../models/User.model")
 const root = require("../root")
-
+const fileUploader = require("../config/cloudinary.config")
 const router = require("express").Router()
 const saltRounds = 10
 
@@ -11,19 +11,26 @@ const saltRounds = 10
   Show a signup form.
   */
 router.get("/signup", async (req, res, next) => {
-  res.status(200).json({ message: "Signup Page Connected!" })
-
-  // const root = __dirname.replace("routes", "");
-  // console.log(root);
   res.sendFile("views/auth/signup.html", { root })
+})
+
+/*
+  GET /login
+  Show a login form.
+  */
+router.get("/login", async (req, res, next) => {
+  res.sendFile("views/auth/login.html", { root: require("../root") })
 })
 
 /*
   POST /signup
   Create a user
 */
-router.post("/signup", async (req, res, next) => {
+router.post("/signup", fileUploader.single("image"), async (req, res, next) => {
   try {
+    if (req.file) {
+      req.body.image = req.file.path
+    }
     const { username, email, password } = req.body
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
 

@@ -10,7 +10,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <link rel="stylesheet" href="css/signup.css" />
+    <link rel="stylesheet" href="/css/signup.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/script/auth/signup.js" type="module"></script>
 
@@ -18,12 +18,31 @@
   </head>
 
   <body>
+    <nav class="container">
+      <h1>FOODDER</h1>
+      <ul class="container">
+        <li><a href="/api/auth/signup">Sign up</a></li>
+        <li><a href="/api/auth/login">Log in</a></li>
+      </ul>
+    </nav>
     <h1>Sign up!</h1>
 
-    <form>
+    <form method="post" action="/signup" enctype="multipart/form-data">
+      <div>
+        <label for="name">Full Name: </label>
+        <input type="text" id="name" name="name" />
+      </div>
       <div>
         <label for="username">Username: </label>
         <input type="text" id="username" name="username" />
+      </div>
+      <div>
+        <label for="email">Email: </label>
+        <input type="email" id="email" name="email" />
+      </div>
+      <div>
+        <label for="profile-picture">Your Profile Picture: </label>
+        <input type="file" id="profile-picture" name="image" />
       </div>
       <div>
         <label for="password">Password: </label>
