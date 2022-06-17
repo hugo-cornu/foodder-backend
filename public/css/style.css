@@ -57,7 +57,6 @@ nav a {
 }
 .button-container {
 	gap: 2rem;
-	position: sticky;
 	top: 0;
 	z-index: 100;
 	align-self: end;
@@ -177,14 +176,15 @@ h3 {
 
 .card picture {
 	width: 100%;
-	aspect-ratio: 1;
+	aspect-ratio: 16/9;
 	overflow: hidden;
 	border-top-left-radius: 1em;
 	border-top-right-radius: 1em;
 }
-.card img {
+.cover-img {
 	object-fit: cover;
-	aspect-ratio: 1;
+	/* aspect-ratio: 1; */
+	width: 100%;
 }
 
 .controls {
