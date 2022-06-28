@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+      integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="/css/signup.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/script/auth/signup.js" type="module"></script>
+
+    <title>Sign up</title>
+  </head>
+
+  <body>
+    <nav class="container">
+      <h1>FOODDER</h1>
+      <ul class="container">
+        <li><a href="/api/auth/signup">Sign up</a></li>
+        <li><a href="/api/auth/login">Log in</a></li>
+      </ul>
+    </nav>
+    <h1>Sign up!</h1>
+
+    <form method="post" action="/signup" enctype="multipart/form-data">
+      <div>
+        <label for="name"></label>
+        <input type="text" id="name" name="name" placeholder="Full Name" />
+      </div>
+      <div>
+        <label for="username"></label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Username"
+        />
+      </div>
+      <div>
+        <label for="email"></label>
+        <input type="email" id="email" name="email" placeholder="Email" />
+      </div>
+      <div>
+        <label for="profile-picture"></label>
+        <input
+          type="file"
+          id="profile-picture"
+          name="image"
+          placeholder="Your Profil Picture"
+        />
+      </div>
+      <div>
+        <label for="password"></label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Set a password"
+        />
+      </div>
+
+      <button>Sign up</button>
+    </form>
+  </body>
+</html>

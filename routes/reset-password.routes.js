@@ -33,7 +33,7 @@ router.post("/reset-password", async (req, res, next) => {
     }
 
     const resetToken = jsonwebtoken.sign(
-      { username, _id },
+      { username },
       process.env.TOKEN_SECRET,
       {
         algorithm: "HS256",
@@ -115,5 +115,3 @@ router.patch("/user/reset-password", async (req, res, next) => {
 })
 
 module.exports = router
-
-// END

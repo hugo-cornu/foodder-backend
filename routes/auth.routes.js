@@ -1,29 +1,38 @@
 const bcrypt = require("bcryptjs")
 const jsonwebtoken = require("jsonwebtoken")
 const User = require("../models/User.model")
-
+const root = require("../root")
+const fileUploader = require("../config/cloudinary.config")
 const router = require("express").Router()
 const saltRounds = 10
+const nodemailer = require("nodemailer")
 
 /*
   GET /signup
   Show a signup form.
   */
 router.get("/signup", async (req, res, next) => {
-  res.status(200).json({ message: "Signup Page Connected!" })
+  res.sendFile("views/auth/signup.html", { root })
+})
 
-  // const root = __dirname.replace("routes", "");
-  // console.log(root);
-  // res.sendFile("views/auth/signup.html", { root });
+/*
+  GET /login
+  Show a login form.
+  */
+router.get("/login", async (req, res, next) => {
+  res.sendFile("views/auth/login.html", { root: require("../root") })
 })
 
 /*
   POST /signup
   Create a user
 */
-router.post("/signup", async (req, res, next) => {
+router.post("/signup", fileUploader.single("image"), async (req, res, next) => {
   try {
-    const { username, email, password } = req.body
+    if (req.file) {
+      req.body.image = req.file.path
+    }
+    const { name, username, email, password } = req.body
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
 
     // Make sure users fill all mandatory fields
@@ -65,6 +74,21 @@ router.post("/signup", async (req, res, next) => {
     const createdUser = await User.create({
       ...req.body,
       password: hashedPassword,
+    })
+
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    })
+
+    const emailMessage = await transporter.sendMail({
+      from: '"Hugo Cornu " <cornu.hugo.@gmail.com>',
+      to: email,
+      subject: "Welcome to Foodder!",
+      text: `Hi ${name}! Welcome to FOODDER!`,
     })
 
     res.status(201).json(createdUser)
