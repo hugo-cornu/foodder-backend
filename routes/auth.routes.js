@@ -120,7 +120,7 @@ router.post("/login", async (req, res, next) => {
 
   const authToken = jsonwebtoken.sign(payload, process.env.TOKEN_SECRET, {
     algorithm: "HS256",
-    expiresIn: "5m",
+    expiresIn: "10m",
   })
 
   res.status(200).json({ isLoggedIn: true, authToken })
