@@ -25,6 +25,9 @@ app.use("/api/auth", authRoutes)
 const articlesRoutes = require("./routes/articles.routes")
 app.use("/api/articles", articlesRoutes)
 
+const commentsRoutes = require("./routes/comments.routes")
+app.use("/api/", commentsRoutes) // -> routes are define deeply in comments.routes.js
+
 const favoritesRoutes = require("./routes/favorites.routes")
 app.use("/api/favorites", favoritesRoutes)
 

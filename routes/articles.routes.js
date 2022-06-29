@@ -35,7 +35,7 @@ router.get("/countries", isAuthenticated, async (req, res, next) => {
 
 // ------------------ PROFILE PAGE ------------------ //
 
-// GET POST FROM A PROFILE PAGE -> FILTER IF USER != PageOwner (Only private posts)
+// GET POSTS FROM A PROFILE PAGE -> FILTER IF USER != PageOwner (Only private posts)
 
 router.get("/user/:username", isAuthenticated, async (req, res, next) => {
   try {
