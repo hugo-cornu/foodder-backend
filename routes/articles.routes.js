@@ -171,7 +171,7 @@ router.delete("/:id", isAuthenticated, isAuthor, async (req, res, next) => {
 
 // ------------------ GENERAL BEHAVIOUR ------------------ //
 
-// GET ONE POST (FULL PAGE) WHEN A USER CLICK ON A POST
+// GET ONE POST (FULL PAGE) WHEN A USER CLICKS ON A POST
 router.get("/:id", isAuthenticated, async (req, res, next) => {
   try {
     articleId = req.params.id
