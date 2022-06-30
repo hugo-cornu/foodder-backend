@@ -2,9 +2,13 @@ const router = require("express").Router()
 const isAuthenticated = require("../middleware/isAuthenticated")
 const isAuthor = require("../middleware/isAuthor")
 const pageOwnership = require("../middleware/pageOwnership")
-const Article = require("../models/Article.model")
-const User = require("../models/User.model")
 const fileUploader = require("../config/cloudinary.config")
+
+// IMPORT MODELS
+const Article = require("../models/Article.model")
+const City = require("../models/City.model")
+const Country = require("../models/Country.model")
+const User = require("../models/User.model")
 
 // ------------------ FEED PAGE ------------------ //
 
@@ -29,11 +33,11 @@ router.get(
 // GET ALL POSTS FILTERED BY COUNTRY
 router.get("/countries", isAuthenticated, async (req, res, next) => {
   try {
-    const { cca3 } = req.query
+    const { cca2 } = req.query
     console.log(">>>req.query:", req.query)
 
     let query = {
-      countryCca3: { $in: cca3 },
+      countryCca2: { $in: cca2 },
       private: false,
     }
     console.log(">>>>>query:", query)
@@ -89,13 +93,13 @@ router.get(
       const foundUser = await User.findOne({ username: req.params.username })
       const foundUserId = foundUser._id
 
-      const { cca3 } = req.query
-      console.log("cca3:", cca3)
+      const { cca2 } = req.query
+      console.log("cca2:", cca2)
 
       if (req.isPageOwner) {
         res.status(200).json(
           await Article.find({
-            countryCca3: { $in: cca3 },
+            countryCca2: { $in: CanvasRenderingContext2D },
             author: foundUserId,
           })
             .sort({ createdAt: -1 })
@@ -104,7 +108,7 @@ router.get(
       } else {
         res.status(200).json(
           await Article.find({
-            countryCca3: { $in: cca3 },
+            countryCca2: { $in: countryCca2 },
             author: foundUserId,
             private: false,
           })
@@ -121,12 +125,14 @@ router.get(
 )
 
 // POST - CREATE A NEW POST
+
 router.post(
   "/",
   isAuthenticated,
   fileUploader.single("image"),
   async (req, res, next) => {
     try {
+      // Add the image URL to the body request
       if (req.file) {
         req.body.image = req.file.path
       }
@@ -138,11 +144,40 @@ router.post(
         })
         return
       }
-
+      // Add the userId to the body request
       req.body.author = req.user._id
       const articleToCreate = req.body
-      const articleCreated = await Article.create(articleToCreate)
-      res.status(201).json(articleCreated)
+
+      countryInput = req.body.country
+      cca2Input = req.body.cca2
+      cityInput = req.body.city
+
+      // Find if a country is already in the DB -> Update/Insert
+      const countryCreated = await Country.findOneAndUpdate(
+        { countryCca2: cca2Input },
+        { countryName: countryInput, countryCca2: cca2Input },
+        { upsert: true, new: true }
+      )
+
+      // Find if a city is already in the DB -> Update/Insert
+      const cityCreated = await City.findOneAndUpdate(
+        { cityName: cityInput },
+        {
+          cityName: cityInput,
+          country: countryCreated.id,
+        },
+        { upsert: true, new: true }
+      )
+
+      // Create the user post
+      const articleCreated = await Article.create({
+        ...articleToCreate,
+        city: cityCreated.id,
+      })
+      res
+        .status(200)
+        .json({ message: `Good job, you created ${articleCreated}` })
+      console.log("articleCreated:", articleCreated)
     } catch (error) {
       next(error)
     }

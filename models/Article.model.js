@@ -13,11 +13,9 @@ const articleSchema = new Schema(
       type: String,
       required: true,
     },
-    countryCca3: {
-      type: String,
-    },
     city: {
-      type: String,
+      type: SchemaTypes.ObjectId,
+      ref: "City",
     },
     restaurant: {
       type: String,
