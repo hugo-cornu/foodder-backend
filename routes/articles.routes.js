@@ -13,6 +13,7 @@ const User = require("../models/User.model")
 // ------------------ FEED PAGE ------------------ //
 
 // GET ALL PUBLIC POSTS IN THE FEED PAGE
+
 router.get(
   "/",
   /* isAuthenticated, */ async (req, res, next) => {
@@ -32,7 +33,7 @@ router.get(
       next(error)
     }
   }
-)
+})
 
 // GET ALL POSTS FILTERED BY COUNTRY
 router.get("/countries", isAuthenticated, async (req, res, next) => {
