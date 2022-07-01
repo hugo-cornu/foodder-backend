@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "drop": "node seeds/drop.seed.js",
+    "seed:all": "node seeds/users.seed.js && node seeds/countries.seed.js && node seeds/cities.seed.js && node seeds/articles.seed.js"
   },
   "dependencies": {
     "axios": "^0.27.2",
