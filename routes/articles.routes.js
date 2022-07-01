@@ -17,13 +17,17 @@ router.get(
   "/",
   /* isAuthenticated, */ async (req, res, next) => {
     try {
-      res
-        .status(200)
-        .json(  
-          await Article.find({ private: false })
-            .sort({ createdAt: -1 })
-            .populate("author")
-        )
+      res.status(200).json(
+        await Article.find({ private: false })
+          .sort({ createdAt: -1 })
+          .populate("author")
+          .populate({
+            path: "city",
+            populate: {
+              path: "country",
+            },
+          })
+      )
     } catch (error) {
       next(error)
     }
