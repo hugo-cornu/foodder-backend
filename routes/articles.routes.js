@@ -13,22 +13,19 @@ const User = require("../models/User.model")
 // ------------------ FEED PAGE ------------------ //
 
 // GET ALL PUBLIC POSTS IN THE FEED PAGE
-router.get(
-  "/",
-  /* isAuthenticated, */ async (req, res, next) => {
-    try {
-      res
-        .status(200)
-        .json(  
-          await Article.find({ private: false })
-            .sort({ createdAt: -1 })
-            .populate("author")
-        )
-    } catch (error) {
-      next(error)
-    }
+router.get("/", isAuthenticated, async (req, res, next) => {
+  try {
+    res
+      .status(200)
+      .json(
+        await Article.find({ private: false })
+          .sort({ createdAt: -1 })
+          .populate("author")
+      )
+  } catch (error) {
+    next(error)
   }
-)
+})
 
 // GET ALL POSTS FILTERED BY COUNTRY
 router.get("/countries", isAuthenticated, async (req, res, next) => {
