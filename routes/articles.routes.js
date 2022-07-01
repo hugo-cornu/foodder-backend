@@ -13,17 +13,25 @@ const User = require("../models/User.model")
 // ------------------ FEED PAGE ------------------ //
 
 // GET ALL PUBLIC POSTS IN THE FEED PAGE
-router.get("/", isAuthenticated, async (req, res, next) => {
-  try {
-    res
-      .status(200)
-      .json(
+
+router.get(
+  "/",
+  /* isAuthenticated, */ async (req, res, next) => {
+    try {
+      res.status(200).json(
         await Article.find({ private: false })
           .sort({ createdAt: -1 })
           .populate("author")
+          .populate({
+            path: "city",
+            populate: {
+              path: "country",
+            },
+          })
       )
-  } catch (error) {
-    next(error)
+    } catch (error) {
+      next(error)
+    }
   }
 })
 
