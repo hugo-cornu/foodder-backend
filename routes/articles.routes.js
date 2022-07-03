@@ -63,13 +63,17 @@ router.get("/user/:username", isAuthenticated, async (req, res, next) => {
 
     // Check if the connected user is the owner of the profile page visited
     if (connectedUsername === username) {
-      res
-        .status(200)
-        .json(
-          await Article.find({ author: userId })
-            .sort({ createdAt: -1 })
-            .populate("author", "username")
-        )
+      res.status(200).json(
+        await Article.find({ author: userId })
+          .sort({ createdAt: -1 })
+          .populate("author", "username")
+          .populate({
+            path: "city",
+            populate: {
+              path: "country",
+            },
+          })
+      )
     } else {
       res
         .status(200)
