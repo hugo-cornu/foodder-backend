@@ -104,6 +104,7 @@ Logging the user into our website
 router.post("/login", async (req, res, next) => {
   const { username, password } = req.body
   const foundUser = await User.findOne({ username })
+  console.log("foundUser:", foundUser)
 
   if (!foundUser) {
     res.status(404).json({ message: "username does not exist" })
@@ -116,7 +117,12 @@ router.post("/login", async (req, res, next) => {
     return
   }
 
-  const payload = { username, name: foundUser.name, _id: foundUser._id }
+  const payload = {
+    username,
+    name: foundUser.name,
+    _id: foundUser._id,
+    image: foundUser.image,
+  }
 
   const authToken = jsonwebtoken.sign(payload, process.env.TOKEN_SECRET, {
     algorithm: "HS256",
