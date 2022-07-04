@@ -107,7 +107,7 @@ router.post("/login", async (req, res, next) => {
   console.log("foundUser:", foundUser)
 
   if (!foundUser) {
-    res.status(404).json({ message: "username does not exist" })
+    res.status(400).json({ message: "username does not exist" })
     return
   }
 
