@@ -32,6 +32,50 @@ router.get("/", isAuthenticated, async (req, res, next) => {
   }
 })
 
+// GET - COUNTRIES TO LET THE USER FILTER ARTICLES BY COUNTRIES
+router.get("/countries", isAuthenticated, async (req, res, next) => {
+  try {
+    let query = [
+      {
+        $match: {
+          private: false,
+        },
+      },
+      {
+        $lookup: {
+          from: "cities",
+          localField: "city",
+          foreignField: "_id",
+          as: "cityLookup",
+        },
+      },
+      {
+        $lookup: {
+          from: "countries",
+          localField: "cityLookup.0.country",
+          foreignField: "_id",
+          as: "countryLookup",
+        },
+      },
+      {
+        $group: {
+          _id: "$countryLookup.countryName",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_id",
+          preserveNullAndEmptyArrays: false,
+        },
+      },
+    ]
+
+    res.status(200).json(await Article.aggregate(query))
+  } catch (error) {
+    next(error)
+  }
+})
+
 // GET ALL POSTS FILTERED BY COUNTRY
 router.get("/countries", isAuthenticated, async (req, res, next) => {
   try {
@@ -203,6 +247,8 @@ router.patch("/:id", isAuthenticated, isAuthor, async (req, res, next) => {
 // DELETE A POST BY ID IF AUTHORIZED
 router.delete("/:id", isAuthenticated, isAuthor, async (req, res, next) => {
   try {
+    const article = await Article.findById(req.params.id).populate("city")
+    const city = article.city
     await Article.findByIdAndDelete(req.params.id)
     res.status(200).json({ message: `Good job, you deleted ${req.params.id}` })
   } catch (error) {
