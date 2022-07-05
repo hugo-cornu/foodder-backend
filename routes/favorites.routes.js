@@ -40,14 +40,17 @@ router.post("/", isAuthenticated, async (req, res, next) => {
 
     // get ID of article to check
     const favToCheckId = req.body.article
+    console.log(" req.body:", req.body)
 
     // get all likes by user
     const allFavOfUser = await Favorite.find({ user: req.user._id }).select(
       "article"
     )
+    console.log("allFavOfUser:", allFavOfUser)
 
     // return array of  strings of  articles' IDs liked by user
     const allFavOfUserIds = await allFavOfUser.map((item) => {
+      console.log("item", item)
       return item.article.toString()
     })
 
@@ -69,12 +72,14 @@ router.post("/", isAuthenticated, async (req, res, next) => {
 })
 
 // DELETE A FAVORITE
-router.delete("/", isAuthenticated, async (req, res, next) => {
+router.delete("/:id", isAuthenticated, async (req, res, next) => {
   const userId = req.user._id.toString()
-  console.log("userId:", userId)
-  console.log("req:", req.body)
-  const favToCheckId = req.body.article
+  // console.log("userId:", userId)
+  // console.log(">>>>>>>>>>>> req:", req.body)
+
+  const favToCheckId = req.params.id
   console.log("favToCheckId:", favToCheckId)
+
   const foundFav = await Favorite.findOne({
     article: favToCheckId,
     user: userId,

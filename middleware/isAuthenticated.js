@@ -3,7 +3,8 @@ const User = require("../models/User.model")
 
 const isAuthenticated = async (req, res, next) => {
   const authorization = req.headers.authorization
-  // console.log({ authorization })
+  console.log("authorization:", authorization)
+  console.log("req.headers:", req.headers)
 
   if (!authorization) {
     res.status(401).json({ message: "Missing Authorization header" })
