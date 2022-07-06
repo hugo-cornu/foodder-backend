@@ -31,6 +31,9 @@ app.use("/api/", commentsRoutes) // -> routes are define deeply in comments.rout
 const favoritesRoutes = require("./routes/favorites.routes")
 app.use("/api/favorites", favoritesRoutes)
 
+const usersRoutes = require("./routes/users.routes")
+app.use("/api/user", usersRoutes)
+
 const resetPasswordRoutes = require("./routes/reset-password.routes")
 app.use("/api", resetPasswordRoutes)
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
