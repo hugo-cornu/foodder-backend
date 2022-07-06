@@ -9,6 +9,10 @@ const Article = require("../models/Article.model")
 const City = require("../models/City.model")
 const Country = require("../models/Country.model")
 const User = require("../models/User.model")
+const {
+  getUniqueCountries,
+  getArticlesFilteredByCountries,
+} = require("../db/aggregations")
 
 // ------------------ FEED PAGE ------------------ //
 
@@ -16,8 +20,18 @@ const User = require("../models/User.model")
 
 router.get("/", isAuthenticated, async (req, res, next) => {
   try {
-    res.status(200).json(
-      await Article.find({ private: false })
+    let results
+    const { countries } = req.query
+
+    if (countries) {
+      const countryList = countries.split(",")
+      results = await getArticlesFilteredByCountries(countryList)
+    } else {
+      const filter = {
+        private: false,
+      }
+
+      results = await Article.find(filter)
         .sort({ createdAt: -1 })
         .populate("author")
         .populate({
@@ -26,7 +40,9 @@ router.get("/", isAuthenticated, async (req, res, next) => {
             path: "country",
           },
         })
-    )
+    }
+
+    res.status(200).json(results)
   } catch (error) {
     next(error)
   }
@@ -35,59 +51,7 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 // GET - COUNTRIES TO LET THE USER FILTER ARTICLES BY COUNTRIES
 router.get("/countries", isAuthenticated, async (req, res, next) => {
   try {
-    let query = [
-      {
-        $match: {
-          private: false,
-        },
-      },
-      {
-        $lookup: {
-          from: "cities",
-          localField: "city",
-          foreignField: "_id",
-          as: "cityLookup",
-        },
-      },
-      {
-        $lookup: {
-          from: "countries",
-          localField: "cityLookup.0.country",
-          foreignField: "_id",
-          as: "countryLookup",
-        },
-      },
-      {
-        $group: {
-          _id: "$countryLookup.countryName",
-        },
-      },
-      {
-        $unwind: {
-          path: "$_id",
-          preserveNullAndEmptyArrays: false,
-        },
-      },
-    ]
-
-    res.status(200).json(await Article.aggregate(query))
-  } catch (error) {
-    next(error)
-  }
-})
-
-// GET ALL POSTS FILTERED BY COUNTRY
-router.get("/countries", isAuthenticated, async (req, res, next) => {
-  try {
-    const { cca2 } = req.query
-    console.log(">>>req.query:", req.query)
-
-    let query = {
-      countryCca2: { $in: cca2 },
-      private: false,
-    }
-    console.log(">>>>>query:", query)
-    res.status(200).json(await Article.find(query))
+    res.status(200).json(await getUniqueCountries())
   } catch (error) {
     next(error)
   }
