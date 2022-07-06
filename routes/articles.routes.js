@@ -83,13 +83,17 @@ router.get("/user/:username", isAuthenticated, async (req, res, next) => {
           })
       )
     } else {
-      res
-        .status(200)
-        .json(
-          await Article.find({ author: userId, private: false })
-            .sort({ createdAt: -1 })
-            .populate("author", "username")
-        )
+      res.status(200).json(
+        await Article.find({ author: userId, private: false })
+          .sort({ createdAt: -1 })
+          .populate("author", "username")
+          .populate({
+            path: "city",
+            populate: {
+              path: "country",
+            },
+          })
+      )
     }
   } catch (error) {
     next(error)
