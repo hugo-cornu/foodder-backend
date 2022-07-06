@@ -16,7 +16,7 @@ router.get("/:usernameParam", isAuthenticated, async (req, res, next) => {
   try {
     res
       .status(200)
-      .json(await User.find({ username: req.params.usernameParam }))
+      .json(await User.findOne({ username: req.params.usernameParam }))
   } catch (error) {
     next(error)
   }
