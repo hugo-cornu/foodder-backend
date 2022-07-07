@@ -117,7 +117,7 @@ router.get(
             author: foundUserId,
           })
             .sort({ createdAt: -1 })
-            .populate("author", "username")
+            .populate("author city", "username lat lng")
         )
       } else {
         res.status(200).json(
@@ -165,6 +165,8 @@ router.post(
       countryInput = req.body.country
       cca2Input = req.body.cca2
       cityInput = req.body.city
+      latInput = req.body.lat
+      lngInput = req.body.lng
 
       // Find if a country is already in the DB -> Update/Insert
       const countryCreated = await Country.findOneAndUpdate(
@@ -178,6 +180,8 @@ router.post(
         { cityName: cityInput },
         {
           cityName: cityInput,
+          lat: latInput,
+          lng: lngInput,
           country: countryCreated.id,
         },
         { upsert: true, new: true }
