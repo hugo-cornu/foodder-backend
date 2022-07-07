@@ -7,21 +7,21 @@ const router = require("express").Router()
 const saltRounds = 10
 const nodemailer = require("nodemailer")
 
-/*
-  GET /signup
-  Show a signup form.
-  */
-router.get("/signup", async (req, res, next) => {
-  res.sendFile("views/auth/signup.html", { root })
-})
+// /*
+//   GET /signup
+//   Show a signup form.
+//   */
+// router.get("/signup", async (req, res, next) => {
+//   res.sendFile("views/auth/signup.html", { root })
+// })
 
-/*
-  GET /login
-  Show a login form.
-  */
-router.get("/login", async (req, res, next) => {
-  res.sendFile("views/auth/login.html", { root: require("../root") })
-})
+// /*
+//   GET /login
+//   Show a login form.
+//   */
+// router.get("/login", async (req, res, next) => {
+//   res.sendFile("views/auth/login.html", { root: require("../root") })
+// })
 
 /*
   POST /signup
