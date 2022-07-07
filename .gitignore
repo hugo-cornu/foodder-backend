@@ -8,4 +8,4 @@ npm-debug.log
 .env
 
 # # Don't want to push seeds. The file was only for testing
-# seeds
+seeds

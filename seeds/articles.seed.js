@@ -113,10 +113,39 @@ const articles = [
     description:
       "Petit dejeuné typique d'Alaska qui fait plaisir en tant que bon breton eheh. Du crabe pour bien commencer la journée ! Et pour bien connaître le produit : c'est quelque chose ! :) Quelle expérience...",
     image:
-      "https://cdn.shopify.com/s/files/1/2113/5975/products/399A7288_800x.jpg?v=1569013739",
+      "https://cdn11.bigcommerce.com/s-yry49ek1lz/images/stencil/1280w/products/146/1546/clr-fresh-02b__52920.1640070345.jpg",
     countryCca2: "US",
     city: "Ketchikan",
     private: false,
+  },
+  {
+    title: "Galette bretonne complète !",
+    description: `Impossible de passer en Bretagne sans tester la fameuse galette bretonne au sarrasin ! On m'en avait tellement parlé. Et c'est autre chose que celle que j'avais déjà pu goûter dans les Alpes 😂 "Makes no sense comme dirait Robin"`,
+    image:
+      "https://www.mesinspirationsculinaires.com/wp-content/uploads/2022/02/la-galette-au-ble-noir-1.jpg",
+    countryCca2: "FR",
+    city: "Concarneau",
+    private: true,
+  },
+  {
+    title: "Fish & Chips à Oldham",
+    description:
+      "Vous allez dire que je suis un fou du Fish & Chips... Mais je suis bien allé à Oldham – là où est né ce délicieux plat calorique eheh. Et vraiment juste pour ça !",
+    image:
+      "https://images.radio-canada.ca/v1/alimentation/recette/4x3/fish-chips.jpg",
+    countryCca2: "EN",
+    city: "Oldham",
+    private: true,
+  },
+  {
+    title: "Grenade... le temple des tapas",
+    description:
+      "Si vous aimez l'apéro, Grenade est faite pour vous ! Les tapas sont pour la plupart des bars gratuites. Comme ce que je vous partage ici. Et là pinte à 3€... que demande le peuple ? :)",
+    image:
+      "https://fh-sites.imgix.net/sites/3422/2020/03/17134152/4647471642_ae57c7a7e3_c.jpg",
+    countryCca2: "ES",
+    city: "Granada",
+    private: true,
   },
 ]
 

@@ -80,6 +80,24 @@ const cities = [
     lng: 105.8544441,
     country: "VN",
   },
+  {
+    cityName: "Concarneau",
+    lat: 47.87254000000007,
+    lng: -3.9176899999999364,
+    country: "FR",
+  },
+  {
+    cityName: "Oldham",
+    lat: 53.54217851200008,
+    lng: -2.11595688999995,
+    country: "EN",
+  },
+  {
+    cityName: "Granada",
+    lat: 12.151965053000026,
+    lng: -61.659644958999934,
+    country: "ES",
+  },
 ]
 
 seed()
