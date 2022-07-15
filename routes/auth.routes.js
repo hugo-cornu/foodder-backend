@@ -34,6 +34,7 @@ router.post("/signup", fileUploader.single("image"), async (req, res, next) => {
     }
     const { name, username, email, password } = req.body
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
+    const regexEmail = /^\S+@\S+\.\S+$/
 
     // Make sure users fill all mandatory fields
     if (!username || !email || !password) {
@@ -49,6 +50,14 @@ router.post("/signup", fileUploader.single("image"), async (req, res, next) => {
       res.status(400).json({
         errorMessage:
           "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+      })
+      return
+    }
+
+    // Make sure email is valid
+    if (!regexEmail.test(email)) {
+      res.status(400).json({
+        errorMessage: "Email is not a valid email address.",
       })
       return
     }
