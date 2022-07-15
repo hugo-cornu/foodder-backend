@@ -54,7 +54,7 @@ router.post("/signup", fileUploader.single("image"), async (req, res, next) => {
       return
     }
 
-    // Make sure email is vavlid
+    // Make sure email is valid
     if (!regexEmail.test(email)) {
       res.status(400).json({
         errorMessage: "Email is not a valid email address.",
