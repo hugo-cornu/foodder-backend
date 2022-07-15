@@ -9,3 +9,5 @@ npm-debug.log
 
 # # Don't want to push seeds. The file was only for testing
 seeds
+
+.DS_Store
